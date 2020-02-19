@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 
 public class Course {
@@ -58,6 +59,13 @@ public class Course {
 		Arrays.sort(students,studentComparator);
 	}
 	
+	//----------------------------------------------------------------------------------
+	// BORING SORTING BY LAST NAME ._.
+	//----------------------------------------------------------------------------------
+	public void sortByFullName() {
+		Arrays.sort(students, new StudentFullNameComparator());
+	}
+	
 /*
 
 							 ▄▀▀█▄   ▄▀▀▄ ▀▄  ▄▀▀▀▀▄   ▄▀▀▄ ▀▄  ▄▀▀▄ ▀▀▄  ▄▀▀▄ ▄▀▄  ▄▀▀▀▀▄   ▄▀▀▄ ▄▀▀▄  ▄▀▀▀▀▄ 
@@ -79,9 +87,12 @@ public class Course {
 
 */
 
+	/*
+	  Anonymous classes allows us to avoid the annoying use of external classes. 
+	*/
 	public void sortByNameAnonymous() {
 		/* 
-		 Teacher's code on steroids.
+		 Seyerman's code, but on steroids:
 		*/
 		Arrays.sort(students, new Comparator<Student>() {
 			
@@ -104,15 +115,12 @@ public class Course {
 		});
 	}
 	
-	public void sortByFullName() {
-		Arrays.sort(students, new StudentFullNameComparator());
-	}
-	
 	public void sortByFullNameAnonymous() {
+		/**
+		 Does the same as sortByFullName, but this code makes use of some declarative paradigm.
+		 */
 		Arrays.sort(students, new Comparator<Student>() {
-			/* 
-			 * My code
-			 */
+			
 			@Override
 			public int compare(Student s1, Student s2) {				
 				String[] ns = Arrays.asList(s1, s2).stream()
@@ -134,4 +142,46 @@ public class Course {
 		});
 	}
 	
+/*
+									 
+									 ▄▀▀▀▀▄      ▄▀▀█▄   ▄▀▀▄ ▄▀▄  ▄▀▀█▄▄   ▄▀▀█▄▄   ▄▀▀█▄  
+									█    █      ▐ ▄▀ ▀▄ █  █ ▀  █ ▐ ▄▀   █ █ ▄▀   █ ▐ ▄▀ ▀▄ 
+									▐    █        █▄▄▄█ ▐  █    █   █▄▄▄▀  ▐ █    █   █▄▄▄█ 
+									    █        ▄▀   █   █    █    █   █    █    █  ▄▀   █ 
+									  ▄▀▄▄▄▄▄▄▀ █   ▄▀  ▄▀   ▄▀    ▄▀▄▄▄▀   ▄▀▄▄▄▄▀ █   ▄▀  
+									  █         ▐   ▐   █    █    █    ▐   █     ▐  ▐   ▐   
+									  ▐                 ▐    ▐    ▐        ▐                
+
+				 ▄▀▀█▄▄▄▄  ▄▀▀▄  ▄▀▄  ▄▀▀▄▀▀▀▄  ▄▀▀▄▀▀▀▄  ▄▀▀█▄▄▄▄  ▄▀▀▀▀▄  ▄▀▀▀▀▄  ▄▀▀█▀▄   ▄▀▀▀▀▄   ▄▀▀▄ ▀▄  ▄▀▀▀▀▄ 
+				▐  ▄▀   ▐ █    █   █ █   █   █ █   █   █ ▐  ▄▀   ▐ █ █   ▐ █ █   ▐ █   █  █ █      █ █  █ █ █ █ █   ▐ 
+				  █▄▄▄▄▄  ▐     ▀▄▀  ▐  █▀▀▀▀  ▐  █▀▀█▀    █▄▄▄▄▄     ▀▄      ▀▄   ▐   █  ▐ █      █ ▐  █  ▀█    ▀▄   
+				  █    ▌       ▄▀ █     █       ▄▀    █    █    ▌  ▀▄   █  ▀▄   █      █    ▀▄    ▄▀   █   █  ▀▄   █  
+				 ▄▀▄▄▄▄       █  ▄▀   ▄▀       █     █    ▄▀▄▄▄▄    █▀▀▀    █▀▀▀    ▄▀▀▀▀▀▄   ▀▀▀▀   ▄▀   █    █▀▀▀   
+				 █    ▐     ▄▀  ▄▀   █         ▐     ▐    █    ▐    ▐       ▐      █       █         █    ▐    ▐      
+				 ▐         █    ▐    ▐                    ▐                        ▐       ▐         ▐                
+ */
+
+	public void sortByNameLambda() {
+		Arrays.asList(students).sort((s1, s2) -> s1.compareTo(s2));
+	}
+	
+	public void sortByFullnameLambda() {
+		Arrays.asList(students).sort((s1, s2) -> {
+				String[] ns = Arrays.asList(s1, s2).stream()
+									   .map(Student::getName)
+									   .toArray(String[]::new);
+				
+				String[] ls = Arrays.asList(s1, s2).stream()
+						   				.map(Student::getLastname)
+						   				.toArray(String[]::new);
+				
+				if( ls[0].compareTo(ls[1]) < 0 ) return -1;
+				else if( ls[0].compareTo(ls[1]) > 0 ) return 1;
+				else {
+					if (ns[0].compareTo(ns[1]) < 0) return -1;
+					else if (ns[0].compareTo(ns[1]) > 0) return 1;
+					else return 0;
+				}
+		});
+	}
 }

@@ -20,11 +20,11 @@ public class Main {
 				}
 		);
 		
-		
+
 		Student[] sts1 = course.getStudents();
 		System.out.println("=======\nAt the begin");
 		printStudents(sts1);
-		
+/*		
 		course.sortByLastname();
 		System.out.println("=======\nSorted by Lastname");
 		Student[] sts2 = course.getStudents();
@@ -34,6 +34,8 @@ public class Main {
 		System.out.println("=======\nSorted by Code");
 		Student[] sts3 = course.getStudents();
 		printStudents(sts3);
+*/	
+		System.out.println("=======\n EXTERNAL CLASSES:");
 		
 		course.sortByName();
 		System.out.println("=======\nSorted by Name");
@@ -44,6 +46,28 @@ public class Main {
 		System.out.println("=======\nSorted by Full Name");
 		Student[] sts5 = course.getStudents();
 		printStudents(sts5);
+		
+		System.out.println("============= ANONOYMOUS CLASSES =============");
+		
+		course.sortByNameAnonymous();
+		System.out.println("=======\nSorted by Name (ANONOYMOUS CLASSES)");
+		Arrays.asList(course.getStudents()).forEach(System.out::println);
+		
+		course.sortByFullNameAnonymous();
+		System.out.println("=======\nSorted by Full Name (ANONOYMOUS CLASSES) ");	
+		Arrays.asList(course.getStudents()).forEach(System.out::println);
+		
+		
+		
+		System.out.println("============= LAMBDA EXPRESSIONS =============");
+		course.sortByNameLambda();
+		System.out.println("=======\nSorted by Name (LAMBDA EXPRESSIONS)");
+		Arrays.asList(course.getStudents()).forEach(System.out::println);
+		
+		course.sortByFullnameLambda();
+		System.out.println("=======\nSorted by Full Name (LAMBDA EXPRESSIONS) ");	
+		Arrays.asList(course.getStudents()).forEach(System.out::println);
+
 	}
 	
 	// Imperative style:

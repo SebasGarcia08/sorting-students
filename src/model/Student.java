@@ -30,6 +30,11 @@ public class Student implements Comparable<Student>{
 	}
 	
 	@Override
+	public String toString() {
+		return String.join("\t", name, lastname, code, String.valueOf(grade));
+	}
+	
+	@Override
 	public int compareTo(Student otherStudent) {
 		int comparation;
 		if(code.compareTo(otherStudent.code)<0) {
