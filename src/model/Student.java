@@ -28,7 +28,7 @@ public class Student implements Comparable<Student>{
 	public double getGrade() {
 		return grade;
 	}
-
+	
 	@Override
 	public int compareTo(Student otherStudent) {
 		int comparation;

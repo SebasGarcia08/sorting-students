@@ -1,5 +1,7 @@
 package ui;
 
+import java.util.Arrays;
+
 import model.Course;
 import model.Student;
 
@@ -10,8 +12,8 @@ public class Main {
 				new Student[] {
 						new Student("Juan","Reyes","A0123",1.3),
 						new Student("Marisol","Giraldo","A9876",4.9),
-						new Student("Daniel","Fernández","A4567",2.4),
-						new Student("Emilio","Rodríguez","A3456",2.9),
+						new Student("Daniel","Fernï¿½ndez","A4567",2.4),
+						new Student("Emilio","Rodrï¿½guez","A3456",2.9),
 						new Student("Oscar","Riascos","A6543",3.1),
 						new Student("Pedro","Riascos","A6543",3.1),
 						new Student("Pablo","Riascos","A6543",3.1)						
@@ -44,7 +46,7 @@ public class Main {
 		printStudents(sts5);
 	}
 	
-	
+	// Imperative style:
 	public static void printStudents(Student[] array) {
 		for (int I = 0; I < array.length; I++) {
 			System.out.println(array[I].getName()+"\t"
@@ -54,5 +56,5 @@ public class Main {
 					);
 		}
 	}
-
+		
 }
